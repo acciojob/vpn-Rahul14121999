@@ -22,7 +22,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public User connect(int userId, String countryName) throws Exception{
         User user = userRepository2.findById(userId).get();
-        if(user.isConnected())
+        if(user.getConnected())
         {
             throw new Exception("Already Connected");
         }
@@ -75,7 +75,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public User disconnect(int userId) throws Exception {
         User user = userRepository2.findById(userId).get();
-        if(!user.isConnected())
+        if(!user.getConnected())
         {
             throw new Exception("Already disconnected");
         }
@@ -110,7 +110,7 @@ public class ConnectionServiceImpl implements ConnectionService {
                     countryName = CountryName.AUS.toString();
 
                 User user2 = connect(senderId, countryName);
-                if (!user2.isConnected()) {
+                if (!user2.getConnected()) {
                     throw new Exception("Cannot establish communication");
 
                 } else return user2;
@@ -122,7 +122,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             }
             String countryName = user1.getOriginalCountry().getCountryName().toString();
             User user2 = connect(senderId, countryName);
-            if (!user2.isConnected()) {
+            if (!user2.getConnected()) {
                 throw new Exception("Cannot establish communication");
             } else return user2;
 
